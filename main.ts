@@ -1,4 +1,5 @@
-// Day one, day seven TikTok entrypoint for make.fun
+// Day one, day seven TikTok entrypoint for make.fun bounty
+// Copies VIDEO.json to output directory for grading
 import { copyFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
