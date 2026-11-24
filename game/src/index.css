@@ -1,0 +1,2255 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --chassis-green-light: #7e9c39;
+  --chassis-green: #68842d;
+  --chassis-green-dark: #4b611e;
+  --chassis-shadow: #2f3e12;
+  --panel-bg: #14171a;
+  --panel-border: #22272e;
+  --panel-inset: #0c0e11;
+  --led-amber: #ffaa00;
+  --led-green: #00ff66;
+  --led-white: #f5f9ff;
+  --gold-trace: #d4af37;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #08090b;
+  /* Vân nền carbon tối công nghiệp cho tablet và desktop */
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(30, 42, 20, 0.35) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, #090a0d 0, #090a0d 2px, #050607 2px, #050607 6px);
+  color: #e0e5eb;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==============================================================
+   KHUNG THIẾT KẾ RESPONSIVE CHO MỌI MÀN HÌNH (PHONE & TABLET)
+   ============================================================== */
+.app-shell {
+  width: 100%;
+  height: 100dvh;
+  max-width: 440px;
+  max-height: 860px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(4px, 1.2vh, 12px) clamp(6px, 2vw, 12px);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* THIẾT BỊ CẦM TAY CHÂN THỰC (HANDHELD DEVICE) */
+.handheld-device {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.95));
+}
+
+/* ==============================================================
+   VỎ MÁY 3D CHẤT LIỆU SILICONE NHỰA NHÁM XANH LÍNH (OLIVE GREEN CHASSIS)
+   ============================================================== */
+.device-chassis {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Mô phỏng chất liệu cao cấp: nhựa nhám mờ silicone figure 3D nổi khối màu xanh lính */
+  background: 
+    radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    linear-gradient(170deg, #8ab03d 0%, #719230 30%, #5a7324 60%, #445819 85%, #354611 100%);
+  border-radius: clamp(22px, 4vw, 30px);
+  padding: clamp(8px, 1.4vh, 13px);
+  box-shadow: 
+    inset 0 3px 5px rgba(255, 255, 255, 0.45),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.8),
+    inset 5px 0 7px rgba(255, 255, 255, 0.18),
+    inset -5px 0 7px rgba(0, 0, 0, 0.65),
+    0 24px 50px rgba(0, 0, 0, 0.95),
+    0 6px 12px rgba(0, 0, 0, 0.7),
+    0 1px 3px rgba(0, 0, 0, 0.5);
+  border: 3.5px solid #4d611d;
+  /* Vát 4 góc 45 độ chuẩn phong cách công nghiệp */
+  clip-path: polygon(
+    20px 0%, calc(100% - 20px) 0%,
+    100% 20px, 100% calc(100% - 20px),
+    calc(100% - 20px) 100%, 20px 100%,
+    0% calc(100% - 20px), 0% 20px
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(6px, 1vh, 10px);
+}
+
+/* 4 ĐINH ỐC KIM LOẠI TITAN DẬP CHÌM Ở 4 GÓC MÁY */
+.screw {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #8a96a3 0%, #3e4752 70%, #1a1e24 100%);
+  border: 1px solid #1c2229;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.8);
+  z-index: 5;
+}
+
+.screw::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 1.5px;
+  background: #14171a;
+  border-radius: 1px;
+}
+
+.screw-top-left { top: 6px; left: 6px; }
+.screw-top-right { top: 6px; right: 6px; transform: rotate(45deg); }
+.screw-bottom-left { bottom: 6px; left: 6px; transform: rotate(90deg); }
+.screw-bottom-right { bottom: 6px; right: 6px; transform: rotate(135deg); }
+
+/* ==============================================================
+   THANH CÔNG CỤ TRÊN CÙNG & CỬA SỔ KÍNH TRONG SUỐT LỘ BẢNG MẠCH
+   ============================================================== */
+.device-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.icon-tool-btn {
+  background: linear-gradient(180deg, #283321 0%, #1b2316 100%);
+  color: #c0ea68;
+  border: 1px solid #4a5c2b;
+  border-radius: 8px;
+  padding: 6px 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.12s;
+  flex-shrink: 0;
+}
+
+.icon-tool-btn:active {
+  transform: translateY(1.5px);
+  filter: brightness(0.85);
+}
+
+.top-right-tools {
+  display: flex;
+  gap: 6px;
+}
+
+/* NÚT TRỢ GIÚP DẬP CHÌM MÀU ĐEN VIỀN XANH CHUẨN 1:1 HÌNH ẢNH MẪU */
+.left-help-squircle-btn {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(145deg, #181c15 0%, #10140e 100%);
+  border: 2px solid #28331e;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  transition: all 0.12s ease;
+  padding: 0;
+}
+
+.left-help-squircle-btn:active {
+  transform: translateY(1.5px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.help-icon-ring {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.8px solid #a6d943;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a6d943;
+  box-shadow: 0 0 6px rgba(166, 217, 67, 0.4), inset 0 0 4px rgba(166, 217, 67, 0.2);
+}
+
+/* ==============================================================
+   CỬA SỔ KÍNH TRONG SUỐT LỘ BẢNG MẠCH THẬT CHUẨN 1:1 (AUTHENTIC PCB)
+   ============================================================== */
+.authentic-pcb-window {
+  flex: 1;
+  height: 38px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 19px;
+  overflow: hidden;
+  background: #090c0a;
+  border: 2px solid #222c1e;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.6),
+    inset 0 2px 4px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.authentic-pcb-window:active {
+  transform: scale(0.98);
+}
+
+.pcb-photoreal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+/* ĐÈN LED QUANG HỌC PHÁT SÁNG ĐỘNG TẠI VỊ TRÍ CHIP AI-BUS */
+.dynamic-ai-bus-led {
+  position: absolute;
+  left: 46.7%;
+  top: 50.7%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(255, 170, 0, 0.3);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: all 0.25s ease;
+}
+
+.filament-core {
+  width: 8px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1px;
+  box-shadow: 0 0 4px #ffffff;
+}
+
+.dynamic-ai-bus-led.idle {
+  background: rgba(255, 157, 0, 0.5);
+  box-shadow: 0 0 10px #ff9d00, 0 0 20px rgba(255, 157, 0, 0.6);
+  animation: pulse-pcb-amber 2.5s infinite ease-in-out;
+}
+
+.dynamic-ai-bus-led.scanning {
+  background: rgba(0, 229, 255, 0.8);
+  box-shadow: 0 0 14px #00e5ff, 0 0 25px rgba(0, 229, 255, 0.9);
+  animation: blink-rapid 0.15s infinite alternate;
+}
+
+.dynamic-ai-bus-led.success {
+  background: rgba(0, 255, 102, 0.85);
+  box-shadow: 0 0 16px #00ff66, 0 0 30px rgba(0, 255, 102, 0.9);
+}
+
+.dynamic-ai-bus-led.alert {
+  background: rgba(255, 51, 51, 0.85);
+  box-shadow: 0 0 16px #ff3333, 0 0 30px rgba(255, 51, 51, 0.9);
+}
+
+/* LỚP KÍNH PHẢN CHIẾU 3D CONG & VỆT LÓA ÁNH SÁNG SAPPHIRE */
+.sapphire-glass-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 17px;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.sheen-diagonal-highlight {
+  position: absolute;
+  top: -20px;
+  left: 28%;
+  width: 25px;
+  height: 80px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: rotate(35deg);
+}
+
+.glass-bezel-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 17px;
+  box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* ==============================================================
+   TẤM PANEL MẶT TRƯỚC (MAIN FACEPLATE) DẬP CHÌM 3D
+   ============================================================== */
+.device-faceplate {
+  flex: 1;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(30, 38, 48, 0.2) 0%, transparent 45%),
+    var(--panel-bg);
+  border-radius: 16px;
+  padding: clamp(6px, 1.2vh, 10px);
+  border: 2px solid var(--panel-border);
+  box-shadow: 
+    inset 0 5px 14px rgba(0, 0, 0, 0.98),
+    inset 0 -2px 6px rgba(255, 255, 255, 0.05),
+    inset 1px 0 3px rgba(255, 255, 255, 0.02),
+    inset -1px 0 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(6px, 1vh, 9px);
+  overflow: hidden;
+}
+
+/* ==============================================================
+   LƯỚI 8 HÀNG NÚT BẤM (GRID CONTAINER - THEO BẢN THIẾT KẾ CONCEPT 1:1)
+   ============================================================== */
+.grid-glass-capsule {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35, 45, 55, 0.3) 0%, transparent 60%),
+    linear-gradient(180deg, #0c0f13 0%, #07090c 100%);
+  border: 1.8px solid #1c242c;
+  box-shadow: 
+    inset 0 4px 14px rgba(0, 0, 0, 0.98),
+    inset 0 -1.5px 3px rgba(255, 255, 255, 0.05),
+    0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* VỆT SÁNG LÓA PHẢN QUANG MẶT KÍNH SAPPHIRE TOÀN BÀN CỜ */
+.grid-glass-reflection-sweep {
+  position: absolute;
+  top: -60px;
+  left: -30px;
+  width: 200px;
+  height: 320px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.02) 35%, transparent 65%);
+  transform: rotate(28deg);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.grid-glass-rim-bezel {
+  position: absolute;
+  inset: 0;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(5px, 1vh, 8px) clamp(6px, 1.4vw, 10px);
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.grid-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5px 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+  gap: clamp(4px, 1vw, 8px);
+  transition: all 0.25s ease;
+  border-radius: 10px;
+}
+
+.grid-row:last-child {
+  border-bottom: none;
+}
+
+/* Hàng đang active — dải highlight vi mạch tinh tế */
+.grid-row.row-active {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.06),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.grid-row.row-victory {
+  background: rgba(0, 230, 118, 0.08);
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.2);
+}
+
+/* ==============================================================
+   CỤM 4 SOCKET WELL CHỨA NÚT PEG VÀ CHỈ SỐ HÀNG
+   ============================================================== */
+.slots-container {
+  display: flex;
+  gap: clamp(5px, 1.4vw, 8px);
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* HỐC CẮM SOCKET CHÌM 3D (RECESS WELL) CHO MỖI PHÍM */
+.peg-socket-well {
+  flex: 1;
+  aspect-ratio: 1;
+  max-width: 44px;
+  max-height: 44px;
+  border-radius: 11px;
+  background: #090c0f;
+  padding: 2px;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* NÚT BẤM SILICONE 3D XÚC GIÁC (TACTILE SILICONE PEG BUTTON) */
+.peg-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+}
+
+.peg-button:active {
+  transform: translateY(1.5px) scale(0.96);
+}
+
+/* 1. NÚT PEG ĐÃ ĐOÁN (LIT) - SILICONE ĐẶC MÀU ĐẬM ĐÀ NỔI KHỐI 3D */
+.peg-button.lit {
+  background:
+    radial-gradient(ellipse at 36% 22%, rgba(255, 255, 255, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 65% 80%, rgba(0, 0, 0, 0.28) 0%, transparent 50%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.18) 100%),
+    var(--peg-color);
+  border-radius: 9px;
+  border: 1.2px solid rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.5),
+    inset 2px 0 3px rgba(0, 0, 0, 0.12),
+    inset -2px 0 3px rgba(0, 0, 0, 0.12),
+    0 3px 5px rgba(0, 0, 0, 0.65),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* 2. NÚT PEG HÀNG ACTIVE (LIT-ACTIVE) - SÁNG NẢY VỚI VIỀN PHẢN QUANG */
+.peg-button.lit-active {
+  background:
+    radial-gradient(ellipse at 36% 22%, rgba(255, 255, 255, 0.26) 0%, transparent 52%),
+    radial-gradient(ellipse at 65% 80%, rgba(0, 0, 0, 0.24) 0%, transparent 50%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0.14) 100%),
+    var(--peg-color);
+  border-radius: 9px;
+  border: 1.2px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    inset 0 1.5px 2.5px rgba(255, 255, 255, 0.35),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.45),
+    inset 2px 0 3px rgba(0, 0, 0, 0.1),
+    inset -2px 0 3px rgba(0, 0, 0, 0.1),
+    0 3px 6px rgba(0, 0, 0, 0.7),
+    0 0 6px var(--peg-glow);
+}
+
+/* 3. Ô TRỐNG (EMPTY) - NẮP PHÍM CAO SU ĐEN NHÁM DẬP NỔI */
+.peg-button.empty {
+  background:
+    radial-gradient(ellipse at 36% 24%, rgba(255, 255, 255, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 65% 80%, rgba(0, 0, 0, 0.35) 0%, transparent 55%),
+    linear-gradient(155deg, #1b2026 0%, #101317 100%);
+  border: 1.2px solid #222932;
+  border-radius: 9px;
+  box-shadow:
+    inset 0 1.2px 2px rgba(255, 255, 255, 0.08),
+    inset 0 -3.5px 5px rgba(0, 0, 0, 0.75),
+    0 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+.peg-button.empty:hover {
+  background:
+    radial-gradient(ellipse at 36% 24%, rgba(255, 255, 255, 0.1) 0%, transparent 55%),
+    linear-gradient(155deg, #222830 0%, #14181d 100%);
+  border-color: #2e3743;
+}
+
+/* VẠCH CON TRỎ CHỈ ĐỊNH Ô ĐANG FOCUS TRÊN HÀNG ĐANG CHỌN */
+.active-cursor-dash {
+  position: absolute;
+  bottom: -4px;
+  width: 20px;
+  height: 3px;
+  background-color: #00e5ff;
+  border-radius: 1.5px;
+  box-shadow: 0 0 6px #00e5ff, 0 0 12px rgba(0, 229, 255, 0.7);
+  animation: blink-cursor-cyan 0.9s infinite alternate;
+  z-index: 5;
+}
+
+@keyframes blink-cursor-cyan {
+  from { opacity: 0.35; transform: scaleX(0.85); }
+  to { opacity: 1; transform: scaleX(1.05); }
+}
+
+.peg-button.slot-focused.empty {
+  border-color: rgba(0, 229, 255, 0.5);
+  box-shadow:
+    inset 0 1.2px 2px rgba(0, 229, 255, 0.25),
+    inset 0 -3.5px 5px rgba(0, 0, 0, 0.75),
+    0 0 8px rgba(0, 229, 255, 0.3);
+}
+
+/* ==============================================================
+   CHỈ SỐ THỨ TỰ HÀNG KHẮC LASER CHÌM (01 - 08)
+   ============================================================== */
+.row-index-indicator {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #3b4653;
+  width: 18px;
+  text-align: center;
+  user-select: none;
+  line-height: 1;
+  z-index: 2;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.row-active .row-index-indicator {
+  color: #00e5ff;
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
+}
+
+.row-past .row-index-indicator {
+  color: #5a6877;
+}
+
+/* ==============================================================
+   CỤM 4 LỖ GHIM PHẢN HỒI KẾT QUẢ (DIE-CAST PIN SOCKET HOUSING)
+   ============================================================== */
+.feedback-container {
+  display: flex;
+  gap: 3.5px;
+  flex-shrink: 0;
+  padding: 4px 5px;
+  background: linear-gradient(180deg, #0b0e12 0%, #06080b 100%);
+  border-radius: 9px;
+  border: 1.4px solid #1a222b;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.05),
+    0 1.5px 3px rgba(0, 0, 0, 0.5);
+}
+
+.feedback-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+}
+
+/* LỖ GHIM CHÂN PIN DIODE LED */
+.feedback-dot {
+  width: 8.5px;
+  height: 8.5px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+    #0c0f13;
+  border: 1px solid #1a2027;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.95),
+    inset 0 -0.5px 1px rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* CHẤM TIM DIODE BÊN TRONG LỖ PIN */
+.dot-pin-core {
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: #181d24;
+  transition: all 0.25s ease;
+}
+
+/* ĐÈN LED EXACT (XANH LÁ NGỌC LỤC BẢO) - ĐÚNG MÀU & ĐÚNG VỊ TRÍ */
+.feedback-dot.exact {
+  background: radial-gradient(circle at 35% 30%, #a7f3d0 0%, #00e676 50%, #00994d 100%);
+  border-color: #34d399;
+  box-shadow:
+    0 0 6px #00e676,
+    0 0 12px rgba(0, 230, 118, 0.65),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.6);
+}
+
+.feedback-dot.exact .dot-pin-core {
+  background: #ffffff;
+  box-shadow: 0 0 4px #ffffff;
+}
+
+/* ĐÈN LED PARTIAL (TRẮNG BẠC NGỌC TRAI) - ĐÚNG MÀU NHƯNG SAI VỊ TRÍ */
+.feedback-dot.partial {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e2e8f0 55%, #94a3b8 100%);
+  border-color: #cbd5e1;
+  box-shadow:
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.5),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.7);
+}
+
+.feedback-dot.partial .dot-pin-core {
+  background: #ffffff;
+  box-shadow: 0 0 3px #ffffff;
+}
+
+.feedback-dot.exact .dot-inner-lens,
+.feedback-dot.partial .dot-inner-lens {
+  display: block;
+}
+
+/* ==============================================================
+   THANH THÔNG TIN MÀU KHẢ DỤNG THEO LEVEL (LEGEND STRIP)
+   ============================================================== */
+.legend-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #0b0e12 0%, #080a0d 100%);
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1.2px solid #181d24;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.9),
+    inset 0 -0.5px 1px rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+
+.legend-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.legend-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 1.5px;
+  transition: all 0.2s ease;
+}
+
+.legend-dot.dot-locked {
+  background-color: #171b1f !important;
+  box-shadow: none !important;
+  opacity: 0.25;
+}
+
+.level-pool-info {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #5d7080;
+}
+
+/* ==============================================================
+   BẢNG CHỌN MÀU (PALETTE SWATCHES - DẢI 8 PHÍM MÀU XÚC GIÁC)
+   ============================================================== */
+.palette-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 8px);
+  flex-shrink: 0;
+}
+
+.palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: clamp(4px, 1.2vw, 6px);
+}
+
+.swatch-btn {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 38% 24%, rgba(255,255,255,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 65% 78%, rgba(0,0,0,0.20) 0%, transparent 50%),
+    linear-gradient(155deg, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0.13) 100%),
+    var(--col-hex);
+  border: 1.5px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.18),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease;
+  padding: 0;
+}
+
+.swatch-btn:active:not(:disabled) {
+  transform: translateY(1.5px) scale(0.95);
+}
+
+.swatch-btn.selected {
+  outline: 2.5px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* PHÍM CHỌN MÀU CƠ HỌC VÒM CONG BẰNG MÀU THUẦN KHIẾT (HOÀN TOÀN KHÔNG CÓ Ô TRẮNG) */
+.swatch-domed-surface {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background: radial-gradient(circle at 45% 30%, rgba(255, 255, 255, 0.32) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.swatch-surface-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, transparent 100%);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.swatch-btn.swatch-locked {
+  background: radial-gradient(circle at center, #2e3740 0%, #1c2227 50%, #14191d 100%) !important;
+  border: 1.6px solid #333d47 !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.6) !important;
+  cursor: not-allowed;
+  opacity: 0.9 !important;
+}
+
+.swatch-locked-well {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon {
+  color: #6a7885;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+}
+
+/* ==============================================================
+   HÀNG 4 PHÍM ĐIỀU KHIỂN XÚC GIÁC (TACTILE CONTROL TOOLBAR)
+   ============================================================== */
+.led-action-toolbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(5px, 1.5vw, 8px);
+}
+
+.led-action-key {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 38% 24%, rgba(255,255,255,0.08) 0%, transparent 55%),
+    linear-gradient(155deg, #272e36 0%, #151a1f 100%);
+  border-radius: 10px;
+  border: 1.5px solid #303b47;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.12),
+    inset 0 -4px 7px rgba(0, 0, 0, 0.6),
+    0 3px 6px rgba(0, 0, 0, 0.65);
+  padding: 0;
+  height: clamp(38px, 5.5vh, 44px);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.led-action-key:hover:not(:disabled) {
+  border-color: #485664;
+  background: linear-gradient(180deg, #2c343d 0%, #1a1f25 100%);
+}
+
+.led-action-key:active:not(:disabled) {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    inset 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+.led-key-surface {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbol-delete {
+  color: #ff4d4f;
+  filter: drop-shadow(0 0 4px #ff4d4f) drop-shadow(0 0 8px rgba(255, 77, 79, 0.6));
+}
+
+/* PHÍM GỢI Ý VỚI CHỮ HINT VÀ SỐ X3 THEO ĐÚNG ẢNH MẪU */
+.hint-stacked-combo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.symbol-hint {
+  color: #ffa940;
+  filter: drop-shadow(0 0 4px #ffa940) drop-shadow(0 0 8px rgba(255, 169, 64, 0.6));
+}
+
+.hint-text-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+.hint-label-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.8px;
+  filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.7));
+}
+
+.hint-counter-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.5px;
+  filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.7));
+}
+
+.symbol-reset {
+  color: #00e5ff;
+  filter: drop-shadow(0 0 4px #00e5ff) drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+}
+
+.symbol-submit {
+  color: #1e3324;
+  transition: all 0.2s ease;
+}
+
+.key-submit.is-ready {
+  border-color: #276738;
+  background: linear-gradient(180deg, #162c1c 0%, #0d1e12 100%);
+}
+
+.key-submit.is-ready .symbol-submit {
+  color: #00ff66;
+  filter: drop-shadow(0 0 4px #00ff66) drop-shadow(0 0 10px rgba(0, 255, 102, 0.85));
+  animation: pulse-led-submit 1.2s infinite alternate;
+}
+
+@keyframes pulse-led-submit {
+  from { filter: drop-shadow(0 0 3px #00ff66); transform: scale(0.96); }
+  to { filter: drop-shadow(0 0 8px #00ff66) drop-shadow(0 0 14px rgba(0, 255, 102, 0.95)); transform: scale(1.06); }
+}
+
+.led-action-key.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.8);
+}
+
+/* ==============================================================
+   KHU VỰC ĐÁY MÁY: MÀN HÌNH LED KÍNH SAPPHIRE & CỤM ĐIỀU HƯỚNG ĐỘ KHÓ
+   ============================================================== */
+.device-bottom-panel-clean {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 2px 0 2px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* ==============================================================
+   CỤM ĐIỀU HƯỚNG ĐỘ KHÓ: [ < ] [ ADVANCE (14-SEG) ] [ > ]
+   ============================================================== */
+.mode-selector-glass-cluster {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1.4;
+  min-width: 0;
+}
+
+.glass-step-btn {
+  width: 28px;
+  height: 40px;
+  background: linear-gradient(180deg, #1f2722 0%, #111613 100%);
+  border: 1.5px solid #2d3a30;
+  border-radius: 8px;
+  color: #7d9685;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.8);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.glass-step-btn:hover:not(:disabled) {
+  color: #c7eed6;
+  border-color: #496350;
+  background: linear-gradient(180deg, #28332c 0%, #161c18 100%);
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+
+.glass-step-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.glass-step-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  border-color: #1a221b;
+  color: #435247;
+}
+
+/* ==============================================================
+   MÀN HÌNH VIÊN NHỘNG KÍNH SAPPHIRE (SAPPHIRE GLASS CAPSULE)
+   DÙNG CHUNG CHO CẢ MÀN HÌNH CHẾ ĐỘ & MÀN HÌNH LƯỢT (01-08)
+   ============================================================== */
+.glass-screen-capsule {
+  position: relative;
+  height: 40px;
+  background: radial-gradient(circle at 50% 25%, #0e1411 0%, #060907 100%);
+  border: 1.8px solid #232d25;
+  border-radius: 10px;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.7),
+    inset 0 2px 5px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3px 7px 3px 7px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.glass-screen-capsule.mode-capsule {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.glass-screen-capsule.mode-capsule:active {
+  transform: scale(0.99);
+}
+
+.glass-screen-capsule.compact-turn-capsule {
+  flex: 0.85;
+  min-width: 96px;
+  max-width: 125px;
+}
+
+/* LỚP VỆT SÁNG & GỜ PHẢN QUANG KÍNH SAPPHIRE */
+.glass-reflection-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.glass-sheen-sweep {
+  position: absolute;
+  top: -15px;
+  left: 20%;
+  width: 22px;
+  height: 70px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: rotate(32deg);
+}
+
+.glass-rim-highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1.2px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* THÔNG TIN META TRÊN ĐẦU MÀN HÌNH */
+.capsule-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+
+.capsule-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #63776b;
+  letter-spacing: 0.8px;
+}
+
+.capsule-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 800;
+  color: #cbe678;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px rgba(203, 230, 120, 0.4);
+}
+
+.capsule-sub-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7px;
+  font-weight: 700;
+  color: #56685d;
+  letter-spacing: 0.5px;
+}
+
+/* HÀNG KÝ TỰ LED 14 ĐOẠN GHÉP GẠCH TRẮNG CYAN */
+.alphanumeric-chars-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5px;
+  height: 23px;
+}
+
+.fourteen-seg-char {
+  flex: 1;
+  max-width: 14px;
+  height: 22px;
+}
+
+.fourteen-seg-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.seg-dim {
+  fill: #121815;
+}
+
+.seg-lit {
+  fill: #e8fcff;
+  filter: drop-shadow(0 0 2px #5de6ff) drop-shadow(0 0 6px #00e5ff);
+}
+
+/* ==============================================================
+   MÀN HÌNH THU GỌN 7-SEGMENT VFD CHO LƯỢT CHƠI (TURN 01 - 08)
+   ============================================================== */
+.vfd-digits-compact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 24px;
+}
+
+.digit-pair {
+  display: flex;
+  gap: 1.5px;
+}
+
+.compact-digit-cell {
+  width: 13px;
+  height: 22px;
+}
+
+.compact-digit-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vfd-off {
+  fill: #111714;
+}
+
+.pair-active .vfd-on {
+  fill: #f4fdff;
+  filter: drop-shadow(0 0 3px #5ae5ff) drop-shadow(0 0 7px #00e5ff);
+}
+
+.pair-max .vfd-on {
+  fill: #7f978c;
+  filter: drop-shadow(0 0 2px rgba(127, 151, 140, 0.4));
+}
+
+.vfd-dash-separator {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  font-weight: 900;
+  color: #00e5ff;
+  filter: drop-shadow(0 0 4px #00e5ff);
+  line-height: 1;
+  padding: 0 1px;
+  user-select: none;
+}
+
+/* ==============================================================
+   NÚT QUA MÀN KHI CHIẾN THẮNG (NEXT LEVEL INLINE TRIGGER)
+   ============================================================== */
+.next-level-trigger-btn {
+  flex: 0.85;
+  height: 40px;
+  background: linear-gradient(180deg, #1e3a24 0%, #0e2213 100%);
+  border: 1.8px solid #38764a;
+  border-radius: 10px;
+  color: #55ff88;
+  cursor: pointer;
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(85, 255, 136, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  animation: pulse-next-btn 1.6s infinite ease-in-out;
+  transition: transform 0.15s ease;
+}
+
+.next-level-trigger-btn:hover {
+  background: linear-gradient(180deg, #264a2f 0%, #122c19 100%);
+  border-color: #4ade80;
+  transform: translateY(-1px);
+}
+
+.next-level-trigger-btn:active {
+  transform: translateY(1px);
+}
+
+.next-level-glow-core {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.next-level-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+@keyframes pulse-next-btn {
+  0%, 100% {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7), 0 0 10px rgba(85, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.8), 0 0 20px rgba(85, 255, 136, 0.7);
+  }
+}
+
+/* ==============================================================
+   GỜ SILICONE BÁM TAY 3D HAI BÊN HÔNG MÁY (TACTILE SIDE GRIPS)
+   ============================================================== */
+.chassis-side-grip {
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  width: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.grip-left {
+  left: -5px;
+}
+
+.grip-right {
+  right: -5px;
+}
+
+.grip-rib {
+  width: 6px;
+  height: 18px;
+  background: linear-gradient(90deg, #445618 0%, #769530 60%, #3a4a15 100%);
+  border-radius: 3px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.grip-right .grip-rib {
+  background: linear-gradient(90deg, #3a4a15 0%, #769530 40%, #445618 100%);
+}
+
+/* ==============================================================
+   MÀN HÌNH NỘI BỘ TRÊN MÁY (ON-DEVICE MENU / SETTINGS / RULES)
+   ============================================================== */
+.on-device-menu-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d1013;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid #1f252c;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  animation: screen-fade-in 0.2s ease-out;
+}
+
+@keyframes screen-fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.menu-screen-header {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1.5px solid #1c2229;
+  padding-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.menu-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #15191e;
+  border: 1px solid #28303a;
+  color: #7d8b98;
+  border-radius: 6px;
+  padding: 6px;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.menu-tab-btn.active {
+  background: #1b241c;
+  color: #00ff66;
+  border-color: #2b5435;
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
+}
+
+.menu-body-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-body-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.menu-body-scroll::-webkit-scrollbar-thumb {
+  background: #242c36;
+  border-radius: 2px;
+}
+
+.menu-section-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.menu-difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.diff-select-btn {
+  background: #13171b;
+  border: 1.5px solid #232b34;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.diff-select-btn:hover {
+  background: #181d23;
+  border-color: #354252;
+}
+
+.diff-select-btn.selected {
+  background: #142218;
+  border-color: #00ff66;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.15);
+}
+
+.diff-btn-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diff-btn-top strong {
+  font-size: 11px;
+  font-family: 'Orbitron', monospace;
+  color: #ffffff;
+}
+
+.diff-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #16331d;
+  color: #4ade80;
+  border: 1px solid #20502c;
+}
+
+.diff-desc-text {
+  font-size: 8.5px;
+  color: #8c9ba8;
+  line-height: 1.25;
+}
+
+.menu-mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-mode-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #13171b;
+  border: 1.5px solid #232b34;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.menu-mode-item:hover {
+  background: #181d23;
+  border-color: #354252;
+}
+
+.menu-mode-item.selected {
+  background: #142218;
+  border-color: #00ff66;
+  box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1);
+}
+
+.item-radio-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.menu-mode-item.selected .item-radio-circle {
+  border-color: #00ff66;
+}
+
+.radio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+}
+
+.item-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-title-row strong {
+  font-size: 11.5px;
+  color: #ffffff;
+}
+
+.item-pill-tag {
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #16331d;
+  color: #4ade80;
+  border: 1px solid #20502c;
+}
+
+.item-pill-tag.tag-hard {
+  background: #332011;
+  color: #fb923c;
+  border-color: #5e3518;
+}
+
+.item-desc {
+  font-size: 10px;
+  color: #8c9ba8;
+  line-height: 1.3;
+}
+
+.menu-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #13171b;
+  border: 1.5px solid #232b34;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.switch-capsule {
+  width: 34px;
+  height: 18px;
+  border-radius: 10px;
+  background: #1e242c;
+  border: 1px solid #333d4b;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.switch-capsule.on {
+  background: #164023;
+  border-color: #00ff66;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7d8b98;
+  transition: all 0.2s;
+}
+
+.switch-capsule.on .switch-thumb {
+  transform: translateX(16px);
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+}
+
+.difficulty-table {
+  background: #0f1216;
+  border-radius: 6px;
+  border: 1px solid #1c2229;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.diff-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px;
+  color: #8b99a6;
+}
+
+.diff-val {
+  color: #cde682;
+  font-weight: bold;
+}
+
+/* RULES TAB IN-DEVICE */
+.rules-hero-card {
+  background: #13171b;
+  border-radius: 8px;
+  border: 1px solid #252d37;
+  padding: 8px 10px;
+}
+
+.rules-hero-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: #cde682;
+  letter-spacing: 0.5px;
+}
+
+.rules-hero-desc {
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-top: 3px;
+  line-height: 1.35;
+}
+
+.rules-pins-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pin-rule-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #13171b;
+  border: 1px solid #202730;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.pin-dot-visual {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pin-rule-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 10.5px;
+}
+
+.pin-rule-text strong {
+  font-size: 10.5px;
+  color: #ffffff;
+}
+
+.pin-rule-text span {
+  font-size: 9.5px;
+  color: #8c9ba8;
+}
+
+/* NÚT RESUME GAME */
+.menu-footer {
+  padding-top: 6px;
+  flex-shrink: 0;
+}
+
+.resume-screen-btn {
+  width: 100%;
+  background: linear-gradient(180deg, #1b3823 0%, #102115 100%);
+  border: 1.5px solid #00ff66;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
+  transition: all 0.15s;
+}
+
+.resume-screen-btn:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.6);
+}
+
+.resume-screen-btn:active {
+  transform: translateY(1.5px);
+}
+
+/* NÚT QUA MÀN KHI THẮNG */
+.next-level-trigger-btn {
+  flex: 1;
+  height: 38px;
+  background: linear-gradient(180deg, #183b23 0%, #0d2114 100%);
+  border: 1.5px solid #00ff66;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 14px rgba(0, 255, 102, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  animation: pulse-victory-btn 1.2s infinite alternate;
+  transition: all 0.15s ease;
+}
+
+@keyframes pulse-victory-btn {
+  0% { box-shadow: 0 0 10px rgba(0, 255, 102, 0.4); border-color: #00ff66; }
+  100% { box-shadow: 0 0 20px rgba(0, 255, 102, 0.85); border-color: #a3ffc6; }
+}
+
+.next-level-glow-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.next-level-text {
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px #00ff66;
+}
+
+.next-level-icon {
+  color: #00ff66;
+  filter: drop-shadow(0 0 6px #00ff66);
+  animation: bounce-right 0.8s infinite alternate ease-in-out;
+}
+
+.sparkle-icon {
+  color: #ffd600;
+  filter: drop-shadow(0 0 6px #ffd600);
+}
+
+@keyframes bounce-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(4px); }
+}
+
+/* HIỆU ỨNG HÀNG CHIẾN THẮNG */
+.grid-row.row-victory {
+  background: rgba(0, 255, 102, 0.12) !important;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 14px rgba(0, 255, 102, 0.35),
+    inset 0 0 10px rgba(0, 255, 102, 0.2);
+  animation: victory-wave 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes victory-wave {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.25); }
+}
+
+.peg-button.peg-victory {
+  border-color: #a6ffcb !important;
+  animation: peg-victory-glow 1.2s infinite alternate;
+}
+
+@keyframes peg-victory-glow {
+  from { box-shadow: 0 0 8px var(--peg-glow); }
+  to { box-shadow: 0 0 18px var(--peg-glow), 0 0 25px rgba(255, 255, 255, 0.6); }
+}
+
+.feedback-container.feedback-victory .feedback-dot.exact {
+  animation: pin-sparkle 0.8s infinite alternate;
+}
+
+@keyframes pin-sparkle {
+  from { transform: scale(1); filter: brightness(1); }
+  to { transform: scale(1.25); filter: brightness(1.4); }
+}
+
+/* THANH BÁO THUA GỌN GÀNG */
+.defeat-strip {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  right: 16px;
+  background: #14171b;
+  border: 1.5px solid #ef4444;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  animation: slide-up 0.25s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.defeat-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.defeat-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: #f87171;
+  letter-spacing: 0.5px;
+}
+
+.mini-reveal-row {
+  display: flex;
+  gap: 5px;
+}
+
+.mini-peg {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.defeat-retry-btn {
+  background: #252b33;
+  color: #ffffff;
+  border: 1px solid #424e5d;
+  border-radius: 6px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.defeat-retry-btn:hover {
+  background: #323b47;
+  border-color: #60a5fa;
+  color: #60a5fa;
+}
+
+/* ==============================================================
+   POPUP CHỌN CHẾ ĐỘ CHƠI TRƯỚC KHI VÀO GAME (MODE SELECT MODAL)
+   ============================================================== */
+.mode-select-backdrop, .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  z-index: 100;
+}
+
+.mode-select-card {
+  width: 100%;
+  max-width: 390px;
+  background: #14181c;
+  border-radius: 20px;
+  border: 2px solid #2d3642;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: modal-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-pcb-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0c0f12;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #202730;
+}
+
+.pcb-micro-chip {
+  width: 14px;
+  height: 14px;
+  background: #19221b;
+  border: 1px solid #2e4a34;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip-led-core {
+  width: 6px;
+  height: 6px;
+  background: #00ff66;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00ff66;
+}
+
+.card-device-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #7b8e9b;
+}
+
+.mode-title-main {
+  font-size: 18px;
+  font-weight: 800;
+  color: #f1f5f9;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.mode-subtitle {
+  font-size: 12px;
+  color: #8b99a6;
+  text-align: center;
+  margin-top: -6px;
+}
+
+.mode-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mode-card-btn {
+  background: #1a2026;
+  border: 2px solid #2e3845;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode-card-btn:hover {
+  border-color: #4a5a6e;
+  background: #1f2730;
+}
+
+.mode-card-btn.active {
+  border-color: #00ff66;
+  background: #132219;
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.25);
+}
+
+.mode-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mode-badge-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badge-unique {
+  background: #1a2e1d;
+  color: #00ff66;
+  border: 1px solid #2a5230;
+}
+
+.badge-dupes {
+  background: #2e2213;
+  color: #ff9d00;
+  border: 1px solid #5a3d1b;
+}
+
+.mode-name-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mode-name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.mode-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.tag-recommended {
+  background: #16331d;
+  color: #5efc82;
+  border: 1px solid #275e33;
+}
+
+.tag-hard {
+  background: #332311;
+  color: #ffb84d;
+  border: 1px solid #664119;
+}
+
+.mode-card-desc {
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.mode-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+}
+
+.mode-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+.start-game-btn {
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+  color: #ffffff;
+  border: 1.5px solid #86efac;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.5);
+  transition: all 0.15s ease;
+}
+
+.start-game-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.7);
+}
+
+.start-game-btn:active {
+  transform: translateY(2px);
+}
+
+/* ==============================================================
+   MODAL LUẬT CHƠI (HELP MODAL)
+   ============================================================== */
+.modal-card {
+  width: 100%;
+  max-width: 380px;
+  background: #161b20;
+  border-radius: 18px;
+  border: 2px solid #2f3844;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: modal-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #cde682;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #8c9ba5;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #bac4cd;
+}
+
+.mode-explainer-box {
+  background: #0f1317;
+  border: 1px solid #252d36;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.mode-row strong {
+  color: #ffffff;
+  display: block;
+}
+
+.mode-row p {
+  color: #8e9ea9;
+  font-size: 11px;
+}
+
+.level-progression-box {
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.prog-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #86efac;
+  font-weight: 700;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.prog-list {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+}
+
+.rule-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #0f1317;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.rule-section h4 {
+  font-size: 11px;
+  color: #798a96;
+  text-transform: uppercase;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot-preview {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.exact-dot {
+  background: var(--led-green);
+  box-shadow: 0 0 8px var(--led-green);
+}
+
+.partial-dot {
+  background: var(--led-white);
+  box-shadow: 0 0 8px #ffffff;
+}
+
+.none-dot {
+  background: #252c34;
+}
+
+.rule-desc {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+.rule-desc strong {
+  color: #ffffff;
+}
+
+.modal-ok-btn {
+  width: 100%;
+  background: #739035;
+  color: #ffffff;
+  padding: 11px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==============================================================
+   ANIMATION CHIẾN THẮNG & FEEDBACK VICTORY
+   ============================================================== */
+.peg-button.peg-victory {
+  animation: peg-win-pulse 0.6s ease-out forwards;
+}
+
+@keyframes peg-win-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  70% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.feedback-container.feedback-victory .feedback-dot.exact {
+  animation: dot-victory-bounce 0.5s ease-out forwards;
+}
+
+@keyframes dot-victory-bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1.1); }
+}
